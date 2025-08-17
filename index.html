@@ -5,53 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Best Video</title>
   <style>
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#000000; /* سادہ بلیک کلر */
-      text-align:center;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      text-align: center;
     }
-    .gallery{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:50px;
-      padding:21px;
+    h1 {
+      color: white;
+      margin: 15px 0;
     }
-    .gallery a img{
-      max-width:100%;
-      height:auto;
-      display:block;
-      border-radius:8px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+
+    /* Category Buttons */
+    .categories {
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    h1{
-      color:white;
+    .categories button {
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .categories button:hover,
+    .categories button.active {
+      background: #ff9800;
+      color: #000;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+      padding: 15px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .gallery a {
+      display: block;
+      width: 100%;
+    }
+    .gallery a img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .gallery a img:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 <body>
   <h1>Best Video</h1>
+
+  <!-- Category Buttons -->
+  <div class="categories">
+    <button class="active" onclick="filterVideos('all', this)">All</button>
+    <button onclick="filterVideos('cat1', this)">Category One</button>
+    <button onclick="filterVideos('cat2', this)">Category Two</button>
+  </div>
+
   <div class="gallery">
-    <!-- پہلی تصویر -->
-    <a href="https://u.pcloud.link/publink/show?code=XZdMks5ZVC4JdMRkiWku8mlhwU83HpNxEjbX" target="_blank">
+    <!-- Video 1 (Category One) -->
+    <a href="https://u.pcloud.link/publink/show?code=XZdMks5ZVC4JdMRkiWku8mlhwU83HpNxEjbX" target="_blank" class="cat1">
       <img src="https://i.postimg.cc/pTWPWKf9/IMG-20250816-232848.jpg" alt="تصویر 1" />
     </a>
 
-    <!-- دوسری تصویر -->
-    <a href="https://u.pcloud.link/publink/show?code=XZMtks5Z35diC7VaT5Y1KxFNm3u30BcYlgAX" target="_blank">
+    <!-- Video 2 (Category Two) -->
+    <a href="https://u.pcloud.link/publink/show?code=XZMtks5Z35diC7VaT5Y1KxFNm3u30BcYlgAX" target="_blank" class="cat2">
       <img src="https://i.postimg.cc/C1gzjZjY/IMG-20250816-232831.jpg" alt="تصویر 2" />
     </a>
     
-    <a href="https://u.pcloud.link/publink/show?code=XZPbXs5ZS43NW0YCqA8w7Jfyza7kBRmGIdFk" target="_blank">
-      <img src="https://i.postimg.cc/htWpqvQp/IMG-20250816-232907.jpg" alt="y" />
+    <!-- Video 3 (Category One) -->
+    <a href="https://u.pcloud.link/publink/show?code=XZPbXs5ZS43NW0YCqA8w7Jfyza7kBRmGIdFk" target="_blank" class="cat1">
+      <img src="https://i.postimg.cc/htWpqvQp/IMG-20250816-232907.jpg" alt="تصویر 3" />
     </a>
    
-    <a href="https://u.pcloud.link/publink/show?code=XZCbXs5Zhf9xbY3EVtpHo9IpFMDpkbJqMolX" target="_blank">
-      <img src="https://i.postimg.cc/Y2JH3wJB/IMG-20250816-232924.jpg" alt="y" />
+    <!-- Video 4 (Category Two) -->
+    <a href="https://u.pcloud.link/publink/show?code=XZCbXs5Zhf9xbY3EVtpHo9IpFMDpkbJqMolX" target="_blank" class="cat2">
+      <img src="https://i.postimg.cc/Y2JH3wJB/IMG-20250816-232924.jpg" alt="تصویر 4" />
     </a>
-
-    <!-- مزید تصاویر اسی فارمیٹ میں کاپی کریں -->
   </div>
+
+  <script>
+    function filterVideos(category, btn) {
+      let videos = document.querySelectorAll('.gallery a');
+      let buttons = document.querySelectorAll('.categories button');
+
+      // remove active class from all
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      videos.forEach(video => {
+        if (category === 'all') {
+          video.classList.remove('hidden');
+        } else {
+          if (video.classList.contains(category)) {
+            video.classList.remove('hidden');
+          } else {
+            video.classList.add('hidden');
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
